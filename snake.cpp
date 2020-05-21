@@ -77,7 +77,7 @@ void Snake::movesnake(void)
 	Cell temp;
 	f=cells.front().p;
 	b=cells.back().p;
-	cells.front().c='@';
+
 	switch(fdir) {
 		case UP:
 			f.row=getrow(f.row-1);
@@ -114,7 +114,6 @@ void Snake::movesnake(void)
 			break;
 		}
 	}
-	
 
 	// 1) Growth 아이템을 먹었을 경우 : 그대로 몸 증가(액션X)
 	// 2) Poision 아템을 먹었을 경우 : 몸의 길이가 2개 감소
@@ -171,7 +170,7 @@ void Snake::render(void)
 	refresh();
 }
 
-// 충돌
+// 충돌판단
 int Snake::collide(void) {
 	for(std::deque<Cell>::iterator it=cells.begin(); it!=cells.end(); ++it){
 		if(cells.front().p.row==it->p.row && cells.front().p.col==it->p.col && it!=cells.begin()) {

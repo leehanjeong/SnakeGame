@@ -30,20 +30,14 @@ struct Point{
 	int row, col;
 };
 
-struct Node {
-	Point p;
-	int dir;
-};
 
 struct Cell {
 	Point p;
-	char c;
 };
 
 struct Item {
 	Point p;
 	int points;
-	char c;
 };
 
 // 먹은 아이템에 정보를 저장
