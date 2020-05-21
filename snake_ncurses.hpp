@@ -4,7 +4,7 @@
 #define MAX_ROW 18
 #define MAX_COL 79
 #define DEF_LEN_FUN 25
-#define DEF_LEN_CLASSIC 5
+#define DEF_LEN_CLASSIC 3
 
 #define FILE_NAME "snake.db"
 
@@ -40,26 +40,24 @@ struct Cell {
 	char c;
 };
 
-struct Treat {
+struct Item {
 	Point p;
 	int points;
 	char c;
 };
 
-struct Status {
+// 먹은 아이템에 정보를 저장
+struct CurrentItem {
+	std::deque<Item>::iterator t;
 	Point p;
 	int itemFlag;
-	int idx;
 };
 
 void print_snake(void);
 int show_menu(void);
 void show_gameover(int);
-void fun_snake_game(void);
-Point rand_point(std::deque<Cell>);
-Point rand_point(std::deque<Cell>, Treat[], int);
+Point rand_point(std::deque<Cell>, std::deque<Item>);
 int rand_score(void);
-char rand_char(void);
 int getrow(int);
 int getcol(int);
 int diff(int, int);

@@ -123,7 +123,7 @@ int classic_game(void) {
 	init_pair(ITEM_POISON, COLOR_MAGENTA, COLOR_MAGENTA);
 	
 
-	Classic_Snake S;
+	Snake S;
 	int ch, d;
 	initscr();
 	keypad(stdscr, TRUE);
@@ -173,66 +173,7 @@ int classic_game(void) {
 	}
 }
 
-void fun_snake_game(void) {
-	Snake S;
-	int ch, d;
-	initscr();
-	keypad(stdscr, TRUE);
-	noecho();
-	timeout(TIMEOUT);
-	curs_set(0);
-	while(1) {
-		ch=getch();
-		if(ch=='q') {
-			return;
-		}
-		else if(ch==KEY_UP || ch==KEY_DOWN || ch==KEY_RIGHT || ch==KEY_LEFT) {
-			switch(ch) {
-				case KEY_UP:
-					d=UP;
-					break;
-				case KEY_DOWN:
-					d=DOWN;
-					break;
-				case KEY_RIGHT:
-					d=RIGHT;
-					break;
-				case KEY_LEFT:
-					d=LEFT;
-					break;
-			}
-			if(diff(S.getfdir(), d)!=2 && d!=S.getfdir()) {
-				S.createNode(d);
-			}
-		}
-		S.movesnake();
-		S.render();
-		attron(A_STANDOUT);
-		mvprintw(23, 25, "PRESS 'Q' to EXIT BACK TO MENU.");
-		attroff(A_STANDOUT);
-		refresh();
-	}
-}
-
-Point rand_point(std::deque<Cell> cells){
-	Point p;
-	int flag;
-	srand(time(NULL));
-	do {
-		flag=0;
-		p.row=rand()%(MAX_ROW+1);
-		p.col=rand()%(MAX_COL+1);
-		for(std::deque<Cell>::iterator it=cells.begin(); it!=cells.end(); ++it){
-			if(p.row==it->p.row && p.col==it->p.col) {
-				flag=1;
-			}
-		}
-
-	}while(flag);
-	return p;
-}
-
-Point rand_point(std::deque<Cell> cells, Treat T[], int cnt){
+Point rand_point(std::deque<Cell> cells, std::deque<Item> items){
 	Point p;
 	int flag;
 	srand(time(NULL));
@@ -247,8 +188,8 @@ Point rand_point(std::deque<Cell> cells, Treat T[], int cnt){
 			}
 		}
 
-		for(int i=0; i<cnt; i++){
-			if(p.row==T[i].p.row && p.col==T[i].p.col) {
+		for(std::deque<Item>::iterator it=items.begin(); it!=items.end(); ++it){
+			if(p.row==it->p.row && p.col==it->p.col) {
 				flag=1;
 				break;
 			}
@@ -259,22 +200,18 @@ Point rand_point(std::deque<Cell> cells, Treat T[], int cnt){
 }
 
 int rand_score(void) {
-	srand(time(NULL));
-	int rnd = rand()%2;
+	// millisecond 기준으로 랜덤발생
+	struct timespec ts;
+    clock_gettime(CLOCK_MONOTONIC, &ts);
+    srand((time_t)ts.tv_nsec);
+
+	int rnd = rand();
 
 	// 0 또는 1
-	if(rnd) return 1;
-	
-	
+	if(rnd%2) return 1;	
 	return -1;
-
-	//return (rand()%10)+1;
 }
 
-char rand_char(void) {
-	char arr[]={'!', '#', '$', '%', '&', '*', '?'};
-	return arr[rand()%(sizeof(arr)/sizeof(char))];
-}
 
 int getrow(int row) {
 	if(row>=0 && row<=MAX_ROW) {
