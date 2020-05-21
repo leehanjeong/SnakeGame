@@ -33,6 +33,7 @@ struct Point{
 
 struct Cell {
 	Point p;
+	int type;
 };
 
 struct Item {
