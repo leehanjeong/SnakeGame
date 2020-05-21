@@ -16,12 +16,13 @@ Snake::Snake(int len)
 	int i;
 	Cell temp;
 
+	// Wall 설정
 	setWall();
 	
-
 	fdir=RIGHT;
 	temp.p=rand_point(cells, items, walls);
 
+	// Snake길이때문에 가끔 화면을 넘어가는 경우가 발생해서 예외조건설정.
 	if(temp.p.row+DEF_LEN_CLASSIC >= MAX_ROW-1){
 		temp.p.row=MAX_ROW-DEF_LEN_CLASSIC-1;
 	}
@@ -31,14 +32,13 @@ Snake::Snake(int len)
 		if(temp.p.col+i >= MAX_COL-1){
 			temp.p.col=MAX_COL-i-1;
 		}
-	
 		cells.push_front(temp);
 	}
 
 	temp.p.col+=i;
 	cells.push_front(temp);
 
-	
+	// 아이템생성(랜덤)
 	makeItem();
 	coll=0;  
 }
@@ -93,19 +93,15 @@ void Snake::movesnake(void)
 
 	switch(fdir) {
 		case UP:
-			//f.row=getrow(f.row-1);
 			f.row-=1;
 			break;
 		case DOWN:
-			//f.row=getrow(f.row+1);
 			f.row+=1;
 			break;
 		case RIGHT:
-			//f.col=getcol(f.col+1);
 			f.col+=1;
 			break;
 		case LEFT:
-			//f.col=getcol(f.col-1);
 			f.col-=1;
 			break;
 	}
@@ -208,7 +204,7 @@ void Snake::render(void)
 	refresh();
 }
 
-// 충돌판단
+// Snake Head가 자신의 Body에 부딪혔을 경우를 찾음
 int Snake::collide(void) {
 	for(std::deque<Cell>::iterator it=cells.begin(); it!=cells.end(); ++it){
 		if(cells.front().p.row==it->p.row && cells.front().p.col==it->p.col && it!=cells.begin()) {
@@ -218,6 +214,21 @@ int Snake::collide(void) {
 	return 0;
 }
 
+// Snake Head가 Wall에 부딪혔을 경우를 찾음
+int Snake::wallcollid()
+{
+	for(std::deque<Cell>::iterator it=walls.begin(); it!=walls.end(); ++it){
+		if(cells.front().p.row==it->p.row && cells.front().p.col==it->p.col){
+			if(it->type != GATEWALL)
+				return 1;
+		}
+	}
+	return 0;
+}
+
+// 기본 Wall Setting
+// 1) 모서리는 Gate로 변할 수 없어서 IMMUNEWALL로 고정
+// 2) WALL은 Gate로 변할 수 있음.
 void Snake::setWall()
 {
     Cell temp1, temp2;
@@ -258,17 +269,6 @@ void Snake::setWall()
         walls.push_back(temp1);
         walls.push_back(temp2);
     }
-}
-
-int Snake::wallcollid()
-{
-	for(std::deque<Cell>::iterator it=walls.begin(); it!=walls.end(); ++it){
-		if(cells.front().p.row==it->p.row && cells.front().p.col==it->p.col){
-			if(it->type != GATEWALL)
-				return 1;
-		}
-	}
-	return 0;
 }
 
 

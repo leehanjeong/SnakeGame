@@ -60,13 +60,12 @@ struct CurrentItem {
 void print_snake(void);
 int show_menu(void);
 void show_gameover(int);
+void print_score(int);
+int classic_game(void);
+
 Point rand_point(std::deque<Cell>, std::deque<Item>, std::deque<Cell>);
 int rand_score(void);
-int getrow(int);
-int getcol(int);
 int diff(int, int);
-int classic_game(void);
-void print_score(int);
 
 
 #endif
