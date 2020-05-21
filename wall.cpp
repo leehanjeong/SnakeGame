@@ -57,3 +57,13 @@ void Wall::setWall(int r, int c)
     }
 }
 
+
+std::deque<Cell> Wall::getcells()
+{
+    return cells;
+}
+
+ void Wall::setcells(std::deque<Cell> cells)
+{
+    this->cells = cells;
+}
