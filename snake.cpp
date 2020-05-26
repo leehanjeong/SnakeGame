@@ -104,7 +104,7 @@ void Snake::movesnake(void)
 	bool itemFlag = false;
 
 	for(std::deque<Item>::iterator it=items.begin(); it!=items.end(); ++it){
-		if(cells.front().p.row==it->p.row && cells.front().p.col==it->p.col) {
+		if(cells.front().p.row==it->p.row && cells.front().p.col==it->p.col) { //snake머리랑 아이템이랑 위치 같으면
 			itemFlag = true;
 
 			curitem.t = it;
@@ -123,12 +123,12 @@ void Snake::movesnake(void)
 		if(curitem.itemFlag == -1){	//Poison Item
 			cells.pop_back();
 			cells.pop_back();
-		}else if(curitem.itemFlag == 1){	
+		}else if(curitem.itemFlag == 1){	//Growth Item
 			//cells.push_back(temp2);
 		}
 		eatItem();
 	}else{	
-		cells.pop_back();
+		cells.pop_back();    
 	}
 
 	// 아이템은 5초가 지나면 자동으로 나타난다.
