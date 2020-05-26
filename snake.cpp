@@ -140,7 +140,7 @@ void Snake::movesnake(void)
 	}
 }
 
-void Snake::render(void) 
+void Snake::render(void)   //ncurses 화면 구현?
 {
 	erase();
 	
