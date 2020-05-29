@@ -8,7 +8,8 @@ protected:
 
 	std::deque<Cell> cells;	// Snake head,body 좌표를 저장하는 queue
 	std::deque<Item> items;	// Item의 좌표를 저장하는 queue
-	
+	std::deque<Cell> walls;
+
 	CurrentItem curitem;	// 아이템을 먹었을 경우, 어떤 아이템을 먹었는 지에 대한 정보(좌표, 종류) 저장.
 	
 	int fdir;				// Snake의 현재진행방향
@@ -24,10 +25,15 @@ public:
 	void render(void);		// 변화된 rol,col를 화면에 출력
 	int collide(void);		// Snake의 머리가 몸통에 부딪히면 충돌판단 -> GameOver
 
+	void setWall();     
+    void setcells(std::deque<Cell>);
+	int wallcollid(void);
+
 	int getscore(void);		// Score는 Snake의 길이
 	int getcoll(void);		// collide()함수 호출시, 변화되는 변수coll Get Function
 	int getfdir(void);		// Snake의 진행방향 Get Function
 	void setfdir(int);		// Snake의 진행방향 Set Function
+	
 };
 
 #endif

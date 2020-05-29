@@ -10,7 +10,8 @@
 #include "snake.hpp"
 #include "score.hpp"
 
-void print_snake(void) {
+void print_snake(void) 
+{
 	mvprintw(0, 14, " $$$$$$\\  $$\\   $$\\  $$$$$$\\  $$\\   $$\\ $$$$$$$$\\\n");
 	mvprintw(1, 14, "$$  __$$\\ $$$\\  $$ |$$  __$$\\ $$ | $$  |$$  _____|\n");
 	mvprintw(2, 14, "$$ /  \\__|$$$$\\ $$ |$$ /  $$ |$$ |$$  / $$ |\n");
@@ -21,7 +22,8 @@ void print_snake(void) {
 	mvprintw(7, 14, " \\______/ \\__|  \\__|\\__|  \\__|\\__|  \\__|\\________|\n");
 }
 
-int show_menu(void) {
+int show_menu(void) 
+{
 	int c=1, ch;
 	initscr();
 	erase();
@@ -88,7 +90,8 @@ int show_menu(void) {
 	}
 }
 
-void show_gameover(int a) {
+void show_gameover(int a) 
+{
 	erase();
 	timeout(TIMEOUT_GAME_OVER);
 	mvprintw(3, 17, "  /$$$$$$   /$$$$$$  /$$      /$$ /$$$$$$$$\n");
@@ -114,14 +117,23 @@ void show_gameover(int a) {
     getch();
 }
 
-int classic_game(void) {
+void print_score(int score)
+{
+	mvprintw(0,MAX_COL-10, "Score : %d", score);
+	refresh();
+}
+
+
+int classic_game(void) 
+{
 	start_color();
 	use_default_colors();
-	init_pair(SNAKE_HEAD, COLOR_RED, COLOR_RED);
-	init_pair(SNAKE_BODY, COLOR_YELLOW, COLOR_YELLOW);
-	init_pair(ITEM_GROWTH, COLOR_GREEN, COLOR_GREEN);
-	init_pair(ITEM_POISON, COLOR_MAGENTA, COLOR_MAGENTA);
-	
+	init_pair(COLOR_SNAKE_HEAD, COLOR_RED, COLOR_RED);
+	init_pair(COLOR_SNAKE_BODY, COLOR_YELLOW, COLOR_YELLOW);
+	init_pair(COLOR_ITEM_GROWTH, COLOR_GREEN, COLOR_GREEN);
+	init_pair(COLOR_ITEM_POISON, COLOR_MAGENTA, COLOR_MAGENTA);
+	init_pair(COLOR_WALL, COLOR_BLUE, COLOR_BLUE);
+	init_pair(COLOR_IMMUNEWALL, COLOR_BLACK, COLOR_BLACK);
 
 	Snake S;
 	int ch, d;
@@ -156,16 +168,27 @@ int classic_game(void) {
 				S.createNode(d);
 			}
 		}
+
+		
 		S.movesnake();
 		S.render();
-		print_score(S.getscore());
 		
+		// 벽에 부딪히거나 자기몸에 부딪히면 GameOver
 		if(S.getcoll()) {
 			timeout(TIMEOUT_LONG);
 			getch();
 			show_gameover(S.getscore());
 			return S.getscore();
 		}
+
+		// 길이가 3미만이면 GameOver
+		if(S.getscore()<DEF_LEN_CLASSIC) {
+			timeout(TIMEOUT_LONG);
+			getch();
+			show_gameover(S.getscore());
+			return S.getscore();
+		}
+		print_score(S.getscore());
 		attron(A_STANDOUT);
 		mvprintw(23, 25, "PRESS 'Q' to EXIT BACK TO MENU.");
 		attroff(A_STANDOUT);
@@ -173,14 +196,14 @@ int classic_game(void) {
 	}
 }
 
-Point rand_point(std::deque<Cell> cells, std::deque<Item> items){
+Point rand_point(std::deque<Cell> cells, std::deque<Item> items, std::deque<Cell> walls){
 	Point p;
 	int flag;
 	srand(time(NULL));
 	do {
 		flag=0;
-		p.row=rand()%(MAX_ROW+1);
-		p.col=rand()%(MAX_COL+1);
+		p.row=(rand()%(MAX_ROW-1))+1;
+		p.col=(rand()%(MAX_COL-1))+1;
 		for(std::deque<Cell>::iterator it=cells.begin(); it!=cells.end(); ++it){
 			if(p.row==it->p.row && p.col==it->p.col) {
 				flag=1;
@@ -195,46 +218,30 @@ Point rand_point(std::deque<Cell> cells, std::deque<Item> items){
 			}
 		}
 
+		for(std::deque<Cell>::iterator it=walls.begin(); it!=walls.end(); ++it){
+			if(p.row==it->p.row && p.col==it->p.col) {
+				flag=1;
+				break;
+			}
+		}
+
 	}while(flag);
 	return p;
 }
 
 int rand_score(void) {
-	// millisecond 기준으로 랜덤발생
+	// 초단위로하면, 동시출현 아이템들의 생성시간이 거의 같아서 종류가 같아지는 버그가 발생.
+	// 따라서 millisecond 기준으로 랜덤처리.
 	struct timespec ts;
     clock_gettime(CLOCK_MONOTONIC, &ts);
     srand((time_t)ts.tv_nsec);
 
 	int rnd = rand();
 
-	// 0 또는 1
+	// 1은 Growth
+	// -1은 Poison
 	if(rnd%2) return 1;	
 	return -1;
-}
-
-
-int getrow(int row) {
-	if(row>=0 && row<=MAX_ROW) {
-		return row;
-	}
-	else if(row<0) {
-		return MAX_ROW+row+1;
-	}
-	else {
-		return row-MAX_ROW-1;
-	}
-}
-
-int getcol(int col) {
-	if(col>=0 && col<=MAX_COL) {
-		return col;
-	}
-	else if(col<0) {
-		return MAX_COL+col+1;
-	}
-	else {
-		return col-MAX_COL-1;
-	}
 }
 
 int diff(int a, int b) {
@@ -246,8 +253,5 @@ int diff(int a, int b) {
 	}
 }
 
-void print_score(int score)
-{
-	mvprintw(0,MAX_COL-10, "Score : %d", score);
-	refresh();
-}
+
+
