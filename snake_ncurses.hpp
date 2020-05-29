@@ -37,7 +37,7 @@
 #define GATEWALL 3
 
 // Snake길이가 10이상일때 Gate가 출현한다.
-#define APPEAR_GATE_LEN 3
+#define APPEAR_GATE_LEN 10
 #define GATE_TIME 10
 
 struct Point{

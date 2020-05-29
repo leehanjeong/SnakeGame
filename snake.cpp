@@ -65,8 +65,6 @@ void Snake::createNode(int d)
 
 void Snake::makeItem() 
 {
-	//erase();
-	
 	item_starttime = time(NULL);
 	srand(time(NULL));
 
@@ -80,7 +78,6 @@ void Snake::makeItem()
 		items.push_back(tempItem);		
 	}
 	curitem.itemFlag = 0;
-	//refresh();
 }
 
 void Snake::eatItem()
@@ -134,14 +131,8 @@ void Snake::movesnake()
 	}
 	temp.p=f;
 	
-	// 벽에 부딪히면 게임 종료
-	if(wallcollid()){
-		coll=1;
-		return;
-	}
-	
 	// 충돌하면 게임 종료
-	if(collide()) {
+	if(wallcollid() || collide()){
 		coll=1;
 		return;
 	}
@@ -245,7 +236,7 @@ void Snake::movesnake()
 		cells.push_front(temp);
 		cells.pop_back();
 
-	}else{
+	}else{	// 벽을 통과하고 있지 않았을 때
 		if(cells.size() >= APPEAR_GATE_LEN && (cur_time-gate_starttime >= GATE_TIME || gate_starttime==0)){
 			makeGate();
 		}
