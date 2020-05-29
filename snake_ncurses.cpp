@@ -132,8 +132,9 @@ int classic_game(void)
 	init_pair(COLOR_SNAKE_BODY, COLOR_YELLOW, COLOR_YELLOW);
 	init_pair(COLOR_ITEM_GROWTH, COLOR_GREEN, COLOR_GREEN);
 	init_pair(COLOR_ITEM_POISON, COLOR_MAGENTA, COLOR_MAGENTA);
-	init_pair(COLOR_WALL, COLOR_BLUE, COLOR_BLUE);
 	init_pair(COLOR_IMMUNEWALL, COLOR_BLACK, COLOR_BLACK);
+	init_pair(COLOR_WALL, COLOR_BLACK, COLOR_BLACK);
+	init_pair(COLOR_GATE, COLOR_BLUE, COLOR_BLUE);
 
 	Snake S;
 	int ch, d;
@@ -228,6 +229,54 @@ Point rand_point(std::deque<Cell> cells, std::deque<Item> items, std::deque<Cell
 	}while(flag);
 	return p;
 }
+
+Point rand_point(std::deque<Cell> cells, std::deque<Item> items, std::deque<Cell> walls, std::deque<Cell> gates)
+{
+	int index = 0;
+	Point p;
+	int flag;
+	srand(time(NULL));
+	do {
+		flag=0;
+
+		// index = rand() % walls.size();
+		// p = walls[index].p;
+		p.row=(rand()%(MAX_ROW-1))+1;
+		p.col=(rand()%(MAX_COL-1))+1;
+
+		for(std::deque<Cell>::iterator it=cells.begin(); it!=cells.end(); ++it){
+			if(p.row==it->p.row && p.col==it->p.col) {
+				flag=1;
+				break;
+			}
+		}
+
+		for(std::deque<Item>::iterator it=items.begin(); it!=items.end(); ++it){
+			if(p.row==it->p.row && p.col==it->p.col) {
+				flag=1;
+				break;
+			}
+		}
+
+		// gate가 겹치면 안됨
+		for(std::deque<Cell>::iterator it=gates.begin(); it!=gates.end(); ++it){
+			if(p.row==it->p.row && p.col==it->p.col) {
+				flag=1;
+				break;
+			}
+		}
+
+		for(std::deque<Cell>::iterator it=walls.begin(); it!=walls.end(); ++it){
+			if(p.row==it->p.row && p.col==it->p.col && it->type==IMMUNEWALL) {
+				flag=1;
+				break;
+			}
+		}
+
+	}while(flag);
+	return p;
+}
+
 
 int rand_score(void) {
 	// 초단위로하면, 동시출현 아이템들의 생성시간이 거의 같아서 종류가 같아지는 버그가 발생.

@@ -26,6 +26,7 @@
 #define COLOR_ITEM_POISON 4
 #define COLOR_WALL 5
 #define COLOR_IMMUNEWALL 6
+#define COLOR_GATE 7
 
 #define MAX_ITEM 3
 #define ITEM_TIME 5
@@ -36,7 +37,8 @@
 #define GATEWALL 3
 
 // Snake길이가 10이상일때 Gate가 출현한다.
-#define APPEAR_GATE_LEN 10
+#define APPEAR_GATE_LEN 3
+#define GATE_TIME 10
 
 struct Point{
 	int row, col;
@@ -67,6 +69,7 @@ void print_score(int);
 int classic_game(void);
 
 Point rand_point(std::deque<Cell>, std::deque<Item>, std::deque<Cell>);
+Point rand_point(std::deque<Cell>, std::deque<Item>, std::deque<Cell>, std::deque<Cell>);
 int rand_score(void);
 int diff(int, int);
 
