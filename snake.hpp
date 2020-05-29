@@ -26,7 +26,6 @@ public:
 	int collide(void);		// Snake의 머리가 몸통에 부딪히면 충돌판단 -> GameOver
 
 	void setWall();     
-    void setcells(std::deque<Cell>);
 	int wallcollid(void);
 
 	int getscore(void);		// Score는 Snake의 길이
