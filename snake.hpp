@@ -25,9 +25,9 @@ public:
 	void render();		// 변화된 rol,col를 화면에 출력
 	int collide();		// Snake의 머리가 몸통에 부딪히면 충돌판단 -> GameOver
 
-	void setWall(); 
-	void setGate();    
-	int wallcollid();
+	void setWall();    	// 초기 벽 설정(WALL,IMMUNEWALL)
+	int wallcollid();	// 벽 충돌여부 확인 함수
+	void makeGate();	// Snake길이가 APPEAR_GATE_LEN(=10) 이상일때 Gate 출현
 
 	int getscore();		// Score는 Snake의 길이
 	int getcoll();		// collide()함수 호출시, 변화되는 변수coll Get Function
