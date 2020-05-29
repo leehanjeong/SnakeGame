@@ -44,7 +44,7 @@ Snake::Snake(int len)
 }
 
 
-int Snake::getfdir(void) 
+int Snake::getfdir() 
 {
 	return fdir;
 }
@@ -59,7 +59,7 @@ void Snake::createNode(int d)
 	fdir=d;
 }
 
-void Snake::makeItem(void) 
+void Snake::makeItem() 
 {
 	erase();
 	
@@ -79,12 +79,12 @@ void Snake::makeItem(void)
 	refresh();
 }
 
-void Snake::eatItem(void)
+void Snake::eatItem()
 {
 	items.erase(curitem.t);
 }
 
-void Snake::movesnake(void) 
+void Snake::movesnake() 
 {
 	Point f, b;
 	Cell temp;
@@ -160,7 +160,7 @@ void Snake::movesnake(void)
 	}
 }
 
-void Snake::render(void)   //ncurses 화면 구현?
+void Snake::render()   //ncurses 화면 구현?
 {
 	erase();
 	
@@ -205,7 +205,7 @@ void Snake::render(void)   //ncurses 화면 구현?
 }
 
 // Snake Head가 자신의 Body에 부딪혔을 경우를 찾음
-int Snake::collide(void) {
+int Snake::collide() {
 	for(std::deque<Cell>::iterator it=cells.begin(); it!=cells.end(); ++it){
 		if(cells.front().p.row==it->p.row && cells.front().p.col==it->p.col && it!=cells.begin()) {
 			return 1;
@@ -272,12 +272,12 @@ void Snake::setWall()
 }
 
 
-int Snake::getcoll(void) 
+int Snake::getcoll() 
 {
 	return coll;
 }
 
-int Snake::getscore(void) 
+int Snake::getscore() 
 {
 	return cells.size();
 }
