@@ -303,4 +303,45 @@ int diff(int a, int b) {
 }
 
 
+void settingMap(std::deque<Cell>& walls, int stage)
+{
+	Cell temp1, temp2;
 
+	for(int i=0; i<MAX_ROW; i++){
+        temp1.p.col = 0;
+        temp2.p.col = MAX_COL-1;
+        temp1.p.row = i;
+        temp2.p.row = i;
+
+        // 가장자리는 Gate로 변할 수 없음(=IMMUNEWALL)
+        if(i==0 || i==MAX_ROW-1){
+            temp1.type = IMMUNEWALL;
+            temp2.type = IMMUNEWALL;
+        }else{
+            temp1.type = WALL;
+            temp2.type = WALL;
+        }
+        walls.push_back(temp1);
+        walls.push_back(temp2);
+    }
+
+    for(int i=0; i<MAX_COL-1; i++){
+        temp1.p.col = i;
+        temp2.p.col = i;
+        temp1.p.row = 0;
+        temp2.p.row = MAX_ROW-1;
+
+        // 가장자리는 Gate로 변할 수 없음(=IMMUNEWALL)
+        if(i==0 || i==MAX_COL-1){
+            temp1.type = IMMUNEWALL;
+            temp2.type = IMMUNEWALL;
+        }else{
+            temp1.type = WALL;
+            temp2.type = WALL;
+        }
+        
+        walls.push_back(temp1);
+        walls.push_back(temp2);
+    }
+
+}

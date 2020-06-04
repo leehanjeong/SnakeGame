@@ -40,6 +40,8 @@
 #define APPEAR_GATE_LEN 10
 #define GATE_TIME 10
 
+#define GAME_STAGE 4
+
 struct Point{
 	int row, col;
 };
@@ -72,6 +74,7 @@ Point rand_point(std::deque<Cell>, std::deque<Item>, std::deque<Cell>);
 Point rand_point(std::deque<Cell>, std::deque<Item>, std::deque<Cell>, std::deque<Cell>);
 int rand_score(void);
 int diff(int, int);
+void settingMap(std::deque<Cell>&, int);
 
 
 #endif
