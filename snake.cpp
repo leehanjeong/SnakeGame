@@ -9,9 +9,10 @@
 #include "snake_ncurses.hpp"
 #include "snake.hpp"
 #include "score.hpp"
+#include "stage.hpp"
 
 
-Snake::Snake(int len)
+Snake::Snake(int s) : len(DEF_LEN_CLASSIC), stage(s)
 {
 	int i;
 	Cell temp;
@@ -22,7 +23,7 @@ Snake::Snake(int len)
 	gate = 0;
 
 	// Wall 설정
-	setWall();
+	setWall(stage);
 
 	// time초기화
 	item_starttime = 0;
@@ -51,6 +52,7 @@ Snake::Snake(int len)
 	makeItem();
 	coll=0;  
 }
+
 
 
 int Snake::getfdir() 
@@ -324,46 +326,48 @@ int Snake::wallcollid()
 // 기본 Wall Setting
 // 1) 모서리는 Gate로 변할 수 없어서 IMMUNEWALL로 고정
 // 2) WALL은 Gate로 변할 수 있음.
-void Snake::setWall()
+void Snake::setWall(int stage)
 {
-    Cell temp1, temp2;
+	walls = setStageWall(stage);
 
-    for(int i=0; i<MAX_ROW; i++){
-        temp1.p.col = 0;
-        temp2.p.col = MAX_COL-1;
-        temp1.p.row = i;
-        temp2.p.row = i;
+    // Cell temp1, temp2;
 
-        // 가장자리는 Gate로 변할 수 없음(=IMMUNEWALL)
-        if(i==0 || i==MAX_ROW-1){
-            temp1.type = IMMUNEWALL;
-            temp2.type = IMMUNEWALL;
-        }else{
-            temp1.type = WALL;
-            temp2.type = WALL;
-        }
-        walls.push_back(temp1);
-        walls.push_back(temp2);
-    }
+    // for(int i=0; i<MAX_ROW; i++){
+    //     temp1.p.col = 0;
+    //     temp2.p.col = MAX_COL-1;
+    //     temp1.p.row = i;
+    //     temp2.p.row = i;
 
-    for(int i=0; i<MAX_COL-1; i++){
-        temp1.p.col = i;
-        temp2.p.col = i;
-        temp1.p.row = 0;
-        temp2.p.row = MAX_ROW-1;
+    //     // 가장자리는 Gate로 변할 수 없음(=IMMUNEWALL)
+    //     if(i==0 || i==MAX_ROW-1){
+    //         temp1.type = IMMUNEWALL;
+    //         temp2.type = IMMUNEWALL;
+    //     }else{
+    //         temp1.type = WALL;
+    //         temp2.type = WALL;
+    //     }
+    //     walls.push_back(temp1);
+    //     walls.push_back(temp2);
+    // }
 
-        // 가장자리는 Gate로 변할 수 없음(=IMMUNEWALL)
-        if(i==0 || i==MAX_COL-1){
-            temp1.type = IMMUNEWALL;
-            temp2.type = IMMUNEWALL;
-        }else{
-            temp1.type = WALL;
-            temp2.type = WALL;
-        }
+    // for(int i=0; i<MAX_COL-1; i++){
+    //     temp1.p.col = i;
+    //     temp2.p.col = i;
+    //     temp1.p.row = 0;
+    //     temp2.p.row = MAX_ROW-1;
+
+    //     // 가장자리는 Gate로 변할 수 없음(=IMMUNEWALL)
+    //     if(i==0 || i==MAX_COL-1){
+    //         temp1.type = IMMUNEWALL;
+    //         temp2.type = IMMUNEWALL;
+    //     }else{
+    //         temp1.type = WALL;
+    //         temp2.type = WALL;
+    //     }
         
-        walls.push_back(temp1);
-        walls.push_back(temp2);
-    }
+    //     walls.push_back(temp1);
+    //     walls.push_back(temp2);
+    // }
 }
 
 
@@ -408,4 +412,9 @@ int Snake::getCntPoison()
 int Snake::getCntGate()
 {
 	return gate;
+}
+
+int Snake::getStage()
+{
+	return stage;
 }

@@ -4,6 +4,9 @@
 
 class Snake{
 protected:
+	int len;
+	int stage;
+
 	time_t item_starttime;	// Item은 5초마다 새로 생성해야하므로, 아이템의 생성시간을 담는 변수
 	time_t gate_starttime;
 
@@ -22,7 +25,7 @@ protected:
 	int gate;
 
 public:
-	Snake(int len=DEF_LEN_CLASSIC);	
+	Snake(int s=1);	
 	void createNode(int d);	// Snake가 움직일때, 새로운 Node를 추가하게됨. -> Item이벤트 발생하지않으면 다시 queue에서 삭제됨. 
 	
 	void makeItem();	// 아아템 생성(랜덤, 최대3개)
@@ -31,7 +34,7 @@ public:
 	void render();		// 변화된 rol,col를 화면에 출력
 	int collide();		// Snake의 머리가 몸통에 부딪히면 충돌판단 -> GameOver
 
-	void setWall();    	// 초기 벽 설정(WALL,IMMUNEWALL)
+	void setWall(int stage);    	// 초기 벽 설정(WALL,IMMUNEWALL)
 	int wallcollid();	// 벽 충돌여부 확인 함수
 	void makeGate();	// Snake길이가 APPEAR_GATE_LEN(=10) 이상일때 Gate 출현
 
@@ -43,6 +46,7 @@ public:
 	int getCntGrowth();
 	int getCntPoison();
 	int getCntGate();
+	int getStage();
 
 	int isWall(Point p);
 	

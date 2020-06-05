@@ -10,6 +10,15 @@
 #include "snake.hpp"
 #include "score.hpp"
 
+// Length, Growth, Poison, Gate
+int MISSION[4][4] = {
+    {7, 3, 2, 1},
+    {10, 5, 3, 2},
+    {12, 6, 3, 3},
+    {15, 7, 4, 4},
+};
+
+
 void print_snake(void) 
 {
 	mvprintw(0, 7, " $$$$$$\\  $$\\   $$\\  $$$$$$\\  $$\\   $$\\ $$$$$$$$\\\n");
@@ -127,6 +136,7 @@ void print_score(Snake& s)
 
 	mvprintw(2, 26, "*******SCORE BOARD******");
 
+	
 	mvprintw(3, 27, "B: %d", s.getscore());
 	mvprintw(4, 27, "+: %d", s.getCntGrowth());
 	mvprintw(5, 27, "-: %d", s.getCntPoison());
@@ -136,14 +146,37 @@ void print_score(Snake& s)
 	refresh();
 }
 
-void print_mission(const Snake& s)
+void print_mission(Snake& s)
 {
-	for(int r=10; r<=17; r++) mvprintw(r,25, "|");
-	for(int r=10; r<=17; r++) mvprintw(r,50, "|");
+	for(int r=10; r<=16; r++) mvprintw(r,25, "|");
+	for(int r=10; r<=16; r++) mvprintw(r,50, "|");
 	for(int c=25; c<=50; c++) mvprintw(10,c, "-");
-	for(int c=25; c<=50; c++) mvprintw(17,c, "-");
+	for(int c=25; c<=50; c++) mvprintw(16,c, "-");
 	
 	mvprintw(11, 26, "******MISSION BOARD*****");
+
+	int stg = s.getStage();
+
+	if(MISSION[stg-1][0] <= s.getscore())
+		mvprintw(12, 27, "B: %d (V)", MISSION[stg-1][0]);
+	else
+		mvprintw(12, 27, "B: %d (%d)", MISSION[stg-1][0], s.getscore());
+
+	if(MISSION[stg-1][1] <= s.getCntGrowth())
+		mvprintw(13, 27, "+: %d (V)", MISSION[stg-1][1]);
+	else
+		mvprintw(13, 27, "+: %d (%d)", MISSION[stg-1][1], s.getCntGrowth());
+	
+	if(MISSION[stg-1][2] <= s.getCntPoison())
+		mvprintw(14, 27, "-: %d (V)", MISSION[stg-1][2]);
+	else
+		mvprintw(14, 27, "-: %d (%d)", MISSION[stg-1][2], s.getCntPoison());
+	
+	if(MISSION[stg-1][3] <= s.getCntGate())
+		mvprintw(15, 27, "G: %d (V)", MISSION[stg-1][3]);
+	else
+		mvprintw(15, 27, "G: %d (%d)", MISSION[stg-1][3], s.getCntGate());
+	
 
 	refresh();
 }
@@ -163,6 +196,8 @@ int classic_game(void)
 
 	Snake S;
 	int ch, d;
+	int stage=1;
+
 	initscr();
 	keypad(stdscr, TRUE);
 	noecho();
@@ -213,6 +248,10 @@ int classic_game(void)
 			getch();
 			show_gameover(S.getscore());
 			return S.getscore();
+		}
+		if(missionClear(stage, S.getscore(), S.getCntGrowth(), S.getCntPoison(), S.getCntGate())){
+			stage++;
+			S = Snake(stage);
 		}
 		print_score(S);
 		print_mission(S);
@@ -328,46 +367,9 @@ int diff(int a, int b) {
 	}
 }
 
-
-void settingMap(std::deque<Cell>& walls, int stage)
+int missionClear(int stage, int len, int item1, int item2, int gate)
 {
-	Cell temp1, temp2;
+	if(MISSION[stage-1][0]<=len && MISSION[stage-1][1]<=item1 && MISSION[stage-1][2]<=item2 && MISSION[stage-1][3]<=gate) return 1;
 
-	for(int i=0; i<MAX_ROW; i++){
-        temp1.p.col = 0;
-        temp2.p.col = MAX_COL-1;
-        temp1.p.row = i;
-        temp2.p.row = i;
-
-        // 가장자리는 Gate로 변할 수 없음(=IMMUNEWALL)
-        if(i==0 || i==MAX_ROW-1){
-            temp1.type = IMMUNEWALL;
-            temp2.type = IMMUNEWALL;
-        }else{
-            temp1.type = WALL;
-            temp2.type = WALL;
-        }
-        walls.push_back(temp1);
-        walls.push_back(temp2);
-    }
-
-    for(int i=0; i<MAX_COL-1; i++){
-        temp1.p.col = i;
-        temp2.p.col = i;
-        temp1.p.row = 0;
-        temp2.p.row = MAX_ROW-1;
-
-        // 가장자리는 Gate로 변할 수 없음(=IMMUNEWALL)
-        if(i==0 || i==MAX_COL-1){
-            temp1.type = IMMUNEWALL;
-            temp2.type = IMMUNEWALL;
-        }else{
-            temp1.type = WALL;
-            temp2.type = WALL;
-        }
-        
-        walls.push_back(temp1);
-        walls.push_back(temp2);
-    }
-
+	return 0;
 }
