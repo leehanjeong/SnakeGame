@@ -67,7 +67,7 @@ struct CurrentItem {
 void print_snake(void);
 int show_menu(void);
 void show_gameover(int);
-void print_score(int);
+void print_mission();
 int classic_game(void);
 
 Point rand_point(std::deque<Cell>, std::deque<Item>, std::deque<Cell>);

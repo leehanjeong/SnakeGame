@@ -16,6 +16,11 @@ Snake::Snake(int len)
 	int i;
 	Cell temp;
 
+	// Score Board를 위한 초기화
+	growth = 0;
+	poison = 0;
+	gate = 0;
+
 	// Wall 설정
 	setWall();
 
@@ -173,8 +178,9 @@ void Snake::movesnake()
 		if(curitem.itemFlag == -1){	//Poison Item
 			cells.pop_back();
 			cells.pop_back();
+			poison++;
 		}else if(curitem.itemFlag == 1){	//Growth Item
-			//cells.push_back(temp2);
+			growth++;
 		}
 		eatItem();
 	}else{	
@@ -235,6 +241,7 @@ void Snake::movesnake()
 
 		cells.push_front(temp);
 		cells.pop_back();
+		gate++;
 
 	}else{	// 벽을 통과하고 있지 않았을 때
 		if(cells.size() >= APPEAR_GATE_LEN && (cur_time-gate_starttime >= GATE_TIME || gate_starttime==0)){
@@ -386,4 +393,19 @@ int Snake::isWall(Point p)
 	}
 
 	return 0;
+}
+
+int Snake::getCntGrowth()
+{
+	return growth;
+}
+
+int Snake::getCntPoison()
+{
+	return poison;
+}
+
+int Snake::getCntGate()
+{
+	return gate;
 }

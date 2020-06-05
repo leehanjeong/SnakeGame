@@ -26,6 +26,7 @@ int show_menu(void)
 {
 	int c=1, ch;
 	initscr();
+	
 	erase();
 	raw();
 	keypad(stdscr, TRUE);
@@ -117,9 +118,33 @@ void show_gameover(int a)
     getch();
 }
 
-void print_score(int score)
+void print_score(Snake& s)
 {
-	mvprintw(0,MAX_COL-10, "Score : %d", score);
+	for(int r=1; r<=7; r++) mvprintw(r,25, "|");
+	for(int r=1; r<=7; r++) mvprintw(r,50, "|");
+	for(int c=25; c<=50; c++) mvprintw(1,c, "-");
+	for(int c=25; c<=50; c++) mvprintw(7,c, "-");
+
+	mvprintw(2, 26, "*******SCORE BOARD******");
+
+	mvprintw(3, 27, "B: %d", s.getscore());
+	mvprintw(4, 27, "+: %d", s.getCntGrowth());
+	mvprintw(5, 27, "-: %d", s.getCntPoison());
+	mvprintw(6, 27, "G: %d", s.getCntGate());
+	
+
+	refresh();
+}
+
+void print_mission(const Snake& s)
+{
+	for(int r=10; r<=17; r++) mvprintw(r,25, "|");
+	for(int r=10; r<=17; r++) mvprintw(r,50, "|");
+	for(int c=25; c<=50; c++) mvprintw(10,c, "-");
+	for(int c=25; c<=50; c++) mvprintw(17,c, "-");
+	
+	mvprintw(11, 26, "******MISSION BOARD*****");
+
 	refresh();
 }
 
@@ -189,7 +214,9 @@ int classic_game(void)
 			show_gameover(S.getscore());
 			return S.getscore();
 		}
-		//print_score(S.getscore());
+		print_score(S);
+		print_mission(S);
+		
 		attron(A_STANDOUT);
 		mvprintw(23, 15, "PRESS 'Q' to EXIT BACK TO MENU.");
 		attroff(A_STANDOUT);
@@ -232,7 +259,6 @@ Point rand_point(std::deque<Cell> cells, std::deque<Item> items, std::deque<Cell
 
 Point rand_point(std::deque<Cell> cells, std::deque<Item> items, std::deque<Cell> walls, std::deque<Cell> gates)
 {
-	int index = 0;
 	Point p;
 	int flag;
 	srand(time(NULL));

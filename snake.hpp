@@ -17,6 +17,10 @@ protected:
 	int fdir;				// Snake의 현재진행방향
 	int score, coll;		// score=Snake의 길이, coll=충돌했는지에 대한 flag
 
+	int poison;
+	int growth;
+	int gate;
+
 public:
 	Snake(int len=DEF_LEN_CLASSIC);	
 	void createNode(int d);	// Snake가 움직일때, 새로운 Node를 추가하게됨. -> Item이벤트 발생하지않으면 다시 queue에서 삭제됨. 
@@ -35,6 +39,10 @@ public:
 	int getcoll();		// collide()함수 호출시, 변화되는 변수coll Get Function
 	int getfdir();		// Snake의 진행방향 Get Function
 	void setfdir(int);		// Snake의 진행방향 Set Function
+
+	int getCntGrowth();
+	int getCntPoison();
+	int getCntGate();
 
 	int isWall(Point p);
 	
