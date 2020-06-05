@@ -27,8 +27,8 @@ Snake::Snake(int len)
 	temp.p=rand_point(cells, items, walls);
 
 	// Snake길이때문에 가끔 화면을 넘어가는 경우가 발생해서 예외조건설정.
-	if(temp.p.row+DEF_LEN_CLASSIC >= MAX_ROW-1){
-		temp.p.row=MAX_ROW-DEF_LEN_CLASSIC-1;
+	if(temp.p.col+(DEF_LEN_CLASSIC*2) >= MAX_ROW-1){
+		temp.p.col -= (MAX_ROW-DEF_LEN_CLASSIC*2);
 	}
 
 	for(i=0; i<len-1; i++) {
@@ -292,8 +292,6 @@ void Snake::render()   //ncurses 화면 구현?
 		mvprintw(it->p.row, it->p.col, "\u2B1B");
 		attroff(COLOR_PAIR(COLOR_GATE));
 	}
-	mvprintw(0, MAX_COL+10, "%d", gates.size());
-	
 	refresh();
 }
 

@@ -12,14 +12,14 @@
 
 void print_snake(void) 
 {
-	mvprintw(0, 14, " $$$$$$\\  $$\\   $$\\  $$$$$$\\  $$\\   $$\\ $$$$$$$$\\\n");
-	mvprintw(1, 14, "$$  __$$\\ $$$\\  $$ |$$  __$$\\ $$ | $$  |$$  _____|\n");
-	mvprintw(2, 14, "$$ /  \\__|$$$$\\ $$ |$$ /  $$ |$$ |$$  / $$ |\n");
-	mvprintw(3, 14, "\\$$$$$$\\  $$ $$\\$$ |$$$$$$$$ |$$$$$  /  $$$$$\\\n");
-	mvprintw(4, 14, " \\____$$\\ $$ \\$$$$ |$$  __$$ |$$  $$<   $$  __|\n");
-	mvprintw(5, 14, "$$\\   $$ |$$ |\\$$$ |$$ |  $$ |$$ |\\$$\\  $$ |\n");
-	mvprintw(6, 14, "\\$$$$$$  |$$ | \\$$ |$$ |  $$ |$$ | \\$$\\ $$$$$$$$\\\n");
-	mvprintw(7, 14, " \\______/ \\__|  \\__|\\__|  \\__|\\__|  \\__|\\________|\n");
+	mvprintw(0, 7, " $$$$$$\\  $$\\   $$\\  $$$$$$\\  $$\\   $$\\ $$$$$$$$\\\n");
+	mvprintw(1, 7, "$$  __$$\\ $$$\\  $$ |$$  __$$\\ $$ | $$  |$$  _____|\n");
+	mvprintw(2, 7, "$$ /  \\__|$$$$\\ $$ |$$ /  $$ |$$ |$$  / $$ |\n");
+	mvprintw(3, 7, "\\$$$$$$\\  $$ $$\\$$ |$$$$$$$$ |$$$$$  /  $$$$$\\\n");
+	mvprintw(4, 7, " \\____$$\\ $$ \\$$$$ |$$  __$$ |$$  $$<   $$  __|\n");
+	mvprintw(5, 7, "$$\\   $$ |$$ |\\$$$ |$$ |  $$ |$$ |\\$$\\  $$ |\n");
+	mvprintw(6, 7, "\\$$$$$$  |$$ | \\$$ |$$ |  $$ |$$ | \\$$\\ $$$$$$$$\\\n");
+	mvprintw(7, 7, " \\______/ \\__|  \\__|\\__|  \\__|\\__|  \\__|\\________|\n");
 }
 
 int show_menu(void) 
@@ -33,10 +33,10 @@ int show_menu(void)
 	curs_set(0);
 	print_snake();
 	attron(A_STANDOUT);
-	mvprintw(12, 28, "Play Classic Snake Game.");
+	mvprintw(12, 22, "Play Snake Game.");
 	attroff(A_STANDOUT);
-	mvprintw(13, 24, "Show All Scores of Classic Mode.");
-	mvprintw(14, 34, "Exit Game.");
+	mvprintw(13, 22, "Show All Scores");
+	mvprintw(14, 24, "Exit Game.");
 	while(1) {
 		ch=getch();
 		if(ch=='\n') {
@@ -63,27 +63,27 @@ int show_menu(void)
 				erase();
 				print_snake();
 				attron(A_STANDOUT);
-				mvprintw(12, 28, "Play Classic Snake Game.");
+				mvprintw(12, 22, "Play Snake Game.");
 				attroff(A_STANDOUT);
-				mvprintw(13, 24, "Show All Scores of Classic Mode.");
-				mvprintw(14, 34, "Exit Game.");
+				mvprintw(13, 22, "Show All Scores");
+				mvprintw(14, 24, "Exit Game.");
 				break;
 			case 2:
 				erase();
 				print_snake();
-				mvprintw(12, 28, "Play Classic Snake Game.");
+				mvprintw(12, 22, "Play Snake Game.");
 				attron(A_STANDOUT);
-				mvprintw(13, 24, "Show All Scores of Classic Mode.");
+				mvprintw(13, 22, "Show All Scores");
 				attroff(A_STANDOUT);
-				mvprintw(14, 34, "Exit Game.");
+				mvprintw(14, 24, "Exit Game.");
 				break;
 			case 3:
 				erase();
 				print_snake();
-				mvprintw(12, 28, "Play Classic Snake Game.");
-				mvprintw(13, 24, "Show All Scores of Classic Mode.");
+				mvprintw(12, 22, "Play Snake Game.");
+				mvprintw(13, 22, "Show All Scores");
 				attron(A_STANDOUT);
-				mvprintw(14, 34, "Exit Game.");
+				mvprintw(14, 24, "Exit Game.");
 				attroff(A_STANDOUT);
 				break;
 		}
@@ -94,23 +94,23 @@ void show_gameover(int a)
 {
 	erase();
 	timeout(TIMEOUT_GAME_OVER);
-	mvprintw(3, 17, "  /$$$$$$   /$$$$$$  /$$      /$$ /$$$$$$$$\n");
-    mvprintw(4, 17, " /$$__  $$ /$$__  $$| $$$    /$$$| $$_____/\n");
-    mvprintw(5, 17, "| $$  \\__/| $$  \\ $$| $$$$  /$$$$| $$      \n");
-    mvprintw(6, 17, "| $$ /$$$$| $$$$$$$$| $$ $$/$$ $$| $$$$$   \n");
-    mvprintw(7, 17, "| $$|_  $$| $$__  $$| $$  $$$| $$| $$__/   \n");
-    mvprintw(8, 17, "| $$  \\ $$| $$  | $$| $$\\  $ | $$| $$      \n");
-    mvprintw(9, 17, "|  $$$$$$/| $$  | $$| $$ \\/  | $$| $$$$$$$$\n");
-    mvprintw(10, 17, " \\______/ |__/  |__/|__/     |__/|________/\n");
-    mvprintw(11, 17, "    /$$$$$$  /$$    /$$ /$$$$$$$$ /$$$$$$$ \n");
-    mvprintw(12, 17, "   /$$__  $$| $$   | $$| $$_____/| $$__  $$\n");
-    mvprintw(13, 17, "  | $$  \\ $$| $$   | $$| $$      | $$  \\ $$\n");
-    mvprintw(14, 17, "  | $$  | $$|  $$ / $$/| $$$$$   | $$$$$$$/\n");
-    mvprintw(15, 17, "  | $$  | $$ \\  $$ $$/ | $$__/   | $$__  $$\n");
-    mvprintw(16, 17, "  | $$  | $$  \\  $$$/  | $$      | $$  \\ $$\n");
-    mvprintw(17, 17, "  |  $$$$$$/   \\  $/   | $$$$$$$$| $$  | $$\n");
-    mvprintw(18, 17, "   \\______/     \\_/    |________/|__/  |__/\n");
-    mvprintw(20, 35, "Score:");
+	mvprintw(3, 10, "  /$$$$$$   /$$$$$$  /$$      /$$ /$$$$$$$$\n");
+    mvprintw(4, 10, " /$$__  $$ /$$__  $$| $$$    /$$$| $$_____/\n");
+    mvprintw(5, 10, "| $$  \\__/| $$  \\ $$| $$$$  /$$$$| $$      \n");
+    mvprintw(6, 10, "| $$ /$$$$| $$$$$$$$| $$ $$/$$ $$| $$$$$   \n");
+    mvprintw(7, 10, "| $$|_  $$| $$__  $$| $$  $$$| $$| $$__/   \n");
+    mvprintw(8, 10, "| $$  \\ $$| $$  | $$| $$\\  $ | $$| $$      \n");
+    mvprintw(9, 10, "|  $$$$$$/| $$  | $$| $$ \\/  | $$| $$$$$$$$\n");
+    mvprintw(10, 10, " \\______/ |__/  |__/|__/     |__/|________/\n");
+    mvprintw(11, 10, "    /$$$$$$  /$$    /$$ /$$$$$$$$ /$$$$$$$ \n");
+    mvprintw(12, 10, "   /$$__  $$| $$   | $$| $$_____/| $$__  $$\n");
+    mvprintw(13, 10, "  | $$  \\ $$| $$   | $$| $$      | $$  \\ $$\n");
+    mvprintw(14, 10, "  | $$  | $$|  $$ / $$/| $$$$$   | $$$$$$$/\n");
+    mvprintw(15, 10, "  | $$  | $$ \\  $$ $$/ | $$__/   | $$__  $$\n");
+    mvprintw(16, 10, "  | $$  | $$  \\  $$$/  | $$      | $$  \\ $$\n");
+    mvprintw(17, 10, "  |  $$$$$$/   \\  $/   | $$$$$$$$| $$  | $$\n");
+    mvprintw(18, 10, "   \\______/     \\_/    |________/|__/  |__/\n");
+    mvprintw(20, 25, "Score:");
     attron(A_STANDOUT);
     printw("%3d", a);
     attroff(A_STANDOUT);
@@ -189,9 +189,9 @@ int classic_game(void)
 			show_gameover(S.getscore());
 			return S.getscore();
 		}
-		print_score(S.getscore());
+		//print_score(S.getscore());
 		attron(A_STANDOUT);
-		mvprintw(23, 25, "PRESS 'Q' to EXIT BACK TO MENU.");
+		mvprintw(23, 15, "PRESS 'Q' to EXIT BACK TO MENU.");
 		attroff(A_STANDOUT);
 		refresh();
 	}
