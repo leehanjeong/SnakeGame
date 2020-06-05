@@ -19,7 +19,7 @@ int MISSION[4][4] = {
 };
 
 
-void print_snake(void) 
+void print_snake(void)
 {
 	mvprintw(0, 7, " $$$$$$\\  $$\\   $$\\  $$$$$$\\  $$\\   $$\\ $$$$$$$$\\\n");
 	mvprintw(1, 7, "$$  __$$\\ $$$\\  $$ |$$  __$$\\ $$ | $$  |$$  _____|\n");
@@ -31,11 +31,11 @@ void print_snake(void)
 	mvprintw(7, 7, " \\______/ \\__|  \\__|\\__|  \\__|\\__|  \\__|\\________|\n");
 }
 
-int show_menu(void) 
+int show_menu(void)
 {
 	int c=1, ch;
 	initscr();
-	
+
 	erase();
 	raw();
 	keypad(stdscr, TRUE);
@@ -100,7 +100,7 @@ int show_menu(void)
 	}
 }
 
-void show_gameover(int a) 
+void show_gameover(int a)
 {
 	erase();
 	timeout(TIMEOUT_GAME_OVER);
@@ -129,60 +129,60 @@ void show_gameover(int a)
 
 void print_score(Snake& s)
 {
-	for(int r=1; r<=7; r++) mvprintw(r,25, "|");
-	for(int r=1; r<=7; r++) mvprintw(r,50, "|");
-	for(int c=25; c<=50; c++) mvprintw(1,c, "-");
-	for(int c=25; c<=50; c++) mvprintw(7,c, "-");
+	for(int r=1; r<=7; r++) mvprintw(r,35, "|");
+	for(int r=1; r<=7; r++) mvprintw(r,60, "|");
+	for(int c=35; c<=60; c++) mvprintw(1,c, "-");
+	for(int c=35; c<=60; c++) mvprintw(7,c, "-");
 
-	mvprintw(2, 26, "*******SCORE BOARD******");
+	mvprintw(2, 36, "*******SCORE BOARD******");
 
-	
-	mvprintw(3, 27, "B: %d", s.getscore());
-	mvprintw(4, 27, "+: %d", s.getCntGrowth());
-	mvprintw(5, 27, "-: %d", s.getCntPoison());
-	mvprintw(6, 27, "G: %d", s.getCntGate());
-	
+
+	mvprintw(3, 37, "B: %d", s.getscore());
+	mvprintw(4, 37, "+: %d", s.getCntGrowth());
+	mvprintw(5, 37, "-: %d", s.getCntPoison());
+	mvprintw(6, 37, "G: %d", s.getCntGate());
+
 
 	refresh();
 }
 
 void print_mission(Snake& s)
 {
-	for(int r=10; r<=16; r++) mvprintw(r,25, "|");
-	for(int r=10; r<=16; r++) mvprintw(r,50, "|");
-	for(int c=25; c<=50; c++) mvprintw(10,c, "-");
-	for(int c=25; c<=50; c++) mvprintw(16,c, "-");
-	
-	mvprintw(11, 26, "******MISSION BOARD*****");
+	for(int r=10; r<=16; r++) mvprintw(r,35, "|");
+	for(int r=10; r<=16; r++) mvprintw(r,60, "|");
+	for(int c=35; c<=60; c++) mvprintw(10,c, "-");
+	for(int c=35; c<=60; c++) mvprintw(16,c, "-");
+
+	mvprintw(11, 36, "******MISSION BOARD*****");
 
 	int stg = s.getStage();
 
 	if(MISSION[stg-1][0] <= s.getscore())
-		mvprintw(12, 27, "B: %d (V)", MISSION[stg-1][0]);
+		mvprintw(12, 37, "B: %d (V)", MISSION[stg-1][0]);
 	else
-		mvprintw(12, 27, "B: %d (%d)", MISSION[stg-1][0], s.getscore());
+		mvprintw(12, 37, "B: %d (%d)", MISSION[stg-1][0], s.getscore());
 
 	if(MISSION[stg-1][1] <= s.getCntGrowth())
-		mvprintw(13, 27, "+: %d (V)", MISSION[stg-1][1]);
+		mvprintw(13, 37, "+: %d (V)", MISSION[stg-1][1]);
 	else
-		mvprintw(13, 27, "+: %d (%d)", MISSION[stg-1][1], s.getCntGrowth());
-	
+		mvprintw(13, 37, "+: %d (%d)", MISSION[stg-1][1], s.getCntGrowth());
+
 	if(MISSION[stg-1][2] <= s.getCntPoison())
-		mvprintw(14, 27, "-: %d (V)", MISSION[stg-1][2]);
+		mvprintw(14, 37, "-: %d (V)", MISSION[stg-1][2]);
 	else
-		mvprintw(14, 27, "-: %d (%d)", MISSION[stg-1][2], s.getCntPoison());
-	
+		mvprintw(14, 37, "-: %d (%d)", MISSION[stg-1][2], s.getCntPoison());
+
 	if(MISSION[stg-1][3] <= s.getCntGate())
-		mvprintw(15, 27, "G: %d (V)", MISSION[stg-1][3]);
+		mvprintw(15, 37, "G: %d (V)", MISSION[stg-1][3]);
 	else
-		mvprintw(15, 27, "G: %d (%d)", MISSION[stg-1][3], s.getCntGate());
-	
+		mvprintw(15, 37, "G: %d (%d)", MISSION[stg-1][3], s.getCntGate());
+
 
 	refresh();
 }
 
 
-int classic_game(void) 
+int classic_game(void)
 {
 	start_color();
 	use_default_colors();
@@ -204,7 +204,7 @@ int classic_game(void)
 	timeout(TIMEOUT);
 	curs_set(0);
 
-	
+
 	while(1) {
 		ch=getch();
 		if(ch=='q') {
@@ -230,10 +230,10 @@ int classic_game(void)
 			}
 		}
 
-		
+
 		S.movesnake();
 		S.render();
-		
+
 		// 벽에 부딪히거나 자기몸에 부딪히면 GameOver
 		if(S.getcoll()) {
 			timeout(TIMEOUT_LONG);
@@ -255,7 +255,7 @@ int classic_game(void)
 		}
 		print_score(S);
 		print_mission(S);
-		
+
 		attron(A_STANDOUT);
 		mvprintw(23, 15, "PRESS 'Q' to EXIT BACK TO MENU.");
 		attroff(A_STANDOUT);
@@ -354,7 +354,7 @@ int rand_score(void) {
 
 	// 1은 Growth
 	// -1은 Poison
-	if(rnd%2) return 1;	
+	if(rnd%2) return 1;
 	return -1;
 }
 

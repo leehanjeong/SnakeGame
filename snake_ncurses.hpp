@@ -2,7 +2,7 @@
 #define SNAKE_NCURSES_HPP
 
 #define MAX_ROW 21
-#define MAX_COL 21
+#define MAX_COL 31
 #define DEF_LEN_FUN 25
 #define DEF_LEN_CLASSIC 3
 
