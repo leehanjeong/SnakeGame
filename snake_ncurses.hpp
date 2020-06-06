@@ -37,7 +37,7 @@
 #define GATEWALL 3
 
 // Snake길이가 10이상일때 Gate가 출현한다.
-#define APPEAR_GATE_LEN 7
+#define APPEAR_GATE_LEN 6
 #define GATE_TIME 10
 
 #define GAME_STAGE 4
@@ -68,6 +68,8 @@ void print_snake(void);
 int show_menu(void);
 void show_gameover(int);
 void print_mission();
+void print_nextStage(int);
+void show_gameClear();
 int classic_game(void);
 
 Point rand_point(std::deque<Cell>, std::deque<Item>, std::deque<Cell>);

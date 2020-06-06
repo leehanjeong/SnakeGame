@@ -33,8 +33,13 @@ Snake::Snake(int s) : len(DEF_LEN_CLASSIC), stage(s)
 	temp.p=rand_point(cells, items, walls);
 
 	// Snake길이때문에 가끔 화면을 넘어가는 경우가 발생해서 예외조건설정.
-	if(temp.p.col+(DEF_LEN_CLASSIC*2) >= MAX_ROW-1){
-		temp.p.col -= (MAX_ROW-DEF_LEN_CLASSIC*2);
+	Point tmpP = temp.p;
+	tmpP.col += DEF_LEN_CLASSIC;
+
+	if((temp.p.col+DEF_LEN_CLASSIC) >= MAX_ROW-1){
+		temp.p.col -= (MAX_ROW-DEF_LEN_CLASSIC);
+	}else if(isWall(tmpP)){
+		temp.p.col -= MAX_ROW-DEF_LEN_CLASSIC;
 	}
 
 	for(i=0; i<len-1; i++) {
@@ -323,51 +328,13 @@ int Snake::wallcollid()
 	return 0;
 }
 
+
 // 기본 Wall Setting
 // 1) 모서리는 Gate로 변할 수 없어서 IMMUNEWALL로 고정
 // 2) WALL은 Gate로 변할 수 있음.
 void Snake::setWall(int stage)
 {
 	walls = setStageWall(stage);
-
-    // Cell temp1, temp2;
-
-    // for(int i=0; i<MAX_ROW; i++){
-    //     temp1.p.col = 0;
-    //     temp2.p.col = MAX_COL-1;
-    //     temp1.p.row = i;
-    //     temp2.p.row = i;
-
-    //     // 가장자리는 Gate로 변할 수 없음(=IMMUNEWALL)
-    //     if(i==0 || i==MAX_ROW-1){
-    //         temp1.type = IMMUNEWALL;
-    //         temp2.type = IMMUNEWALL;
-    //     }else{
-    //         temp1.type = WALL;
-    //         temp2.type = WALL;
-    //     }
-    //     walls.push_back(temp1);
-    //     walls.push_back(temp2);
-    // }
-
-    // for(int i=0; i<MAX_COL-1; i++){
-    //     temp1.p.col = i;
-    //     temp2.p.col = i;
-    //     temp1.p.row = 0;
-    //     temp2.p.row = MAX_ROW-1;
-
-    //     // 가장자리는 Gate로 변할 수 없음(=IMMUNEWALL)
-    //     if(i==0 || i==MAX_COL-1){
-    //         temp1.type = IMMUNEWALL;
-    //         temp2.type = IMMUNEWALL;
-    //     }else{
-    //         temp1.type = WALL;
-    //         temp2.type = WALL;
-    //     }
-        
-    //     walls.push_back(temp1);
-    //     walls.push_back(temp2);
-    // }
 }
 
 

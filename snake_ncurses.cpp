@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <locale.h>
+#include <unistd.h>
 
 #include "snake_ncurses.hpp"
 #include "snake.hpp"
@@ -12,10 +13,10 @@
 
 // Length, Growth, Poison, Gate
 int MISSION[4][4] = {
-    {7, 3, 2, 1},
-    {10, 5, 3, 2},
-    {12, 6, 3, 3},
-    {15, 7, 4, 4},
+    {7, 3, 1, 1},
+    {10, 4, 2, 1},
+    {12, 5, 3, 2},
+    {14, 6, 4, 3},
 };
 
 
@@ -99,6 +100,30 @@ int show_menu(void)
 		}
 	}
 }
+
+void show_gameClear()
+{
+	erase();
+	timeout(TIMEOUT_GAME_OVER);
+	mvprintw(10, 10, "★★You are Winner★★★\n");
+    getch();
+}
+
+void print_nextStage(int stage)
+{
+	erase();
+	mvprintw(10, 10, "NEXT STAGE(%d) >> \n", stage+1);
+	mvprintw(11, 10, "Press N key... \n");
+	refresh();
+
+
+	char ch = NULL;
+	do{
+		sleep(1);
+		ch = getch();
+	}while(ch!='n');
+}
+
 
 void show_gameover(int a)
 {
@@ -194,10 +219,10 @@ int classic_game(void)
 	init_pair(COLOR_WALL, COLOR_BLACK, COLOR_BLACK);
 	init_pair(COLOR_GATE, COLOR_BLUE, COLOR_BLUE);
 
-	Snake S;
-	int ch, d;
 	int stage=1;
-
+	int ch, d;
+	Snake S(stage);
+	
 	initscr();
 	keypad(stdscr, TRUE);
 	noecho();
@@ -234,6 +259,10 @@ int classic_game(void)
 		S.movesnake();
 		S.render();
 
+
+		print_score(S);
+		print_mission(S);
+
 		// 벽에 부딪히거나 자기몸에 부딪히면 GameOver
 		if(S.getcoll()) {
 			timeout(TIMEOUT_LONG);
@@ -249,12 +278,15 @@ int classic_game(void)
 			show_gameover(S.getscore());
 			return S.getscore();
 		}
+
+
 		if(missionClear(stage, S.getscore(), S.getCntGrowth(), S.getCntPoison(), S.getCntGate())){
+			if(stage==4) break;
+			print_nextStage(stage);
 			stage++;
 			S = Snake(stage);
+			continue;
 		}
-		print_score(S);
-		print_mission(S);
 
 		attron(A_STANDOUT);
 		mvprintw(23, 15, "PRESS 'Q' to EXIT BACK TO MENU.");
@@ -298,16 +330,18 @@ Point rand_point(std::deque<Cell> cells, std::deque<Item> items, std::deque<Cell
 
 Point rand_point(std::deque<Cell> cells, std::deque<Item> items, std::deque<Cell> walls, std::deque<Cell> gates)
 {
+	int index = 0;
 	Point p;
 	int flag;
 	srand(time(NULL));
+
 	do {
 		flag=0;
 
-		// index = rand() % walls.size();
-		// p = walls[index].p;
-		p.row=(rand()%(MAX_ROW-1))+1;
-		p.col=(rand()%(MAX_COL-1))+1;
+		index = rand() % walls.size();
+		p = walls[index].p;
+		// p.row=(rand()%(MAX_ROW-1))+1;
+		// p.col=(rand()%(MAX_COL-1))+1;
 
 		for(std::deque<Cell>::iterator it=cells.begin(); it!=cells.end(); ++it){
 			if(p.row==it->p.row && p.col==it->p.col) {
