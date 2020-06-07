@@ -7,12 +7,35 @@ C++ 언어를 사용하고 ncurses 라이브러리를 활용하여 제작한 Sna
 ### 목차
 
 - [1. Team](#1-team)
+
 - [2. Compile](#2-compile)
+
 - [3. Excute](#3-excute)
+
 - [4. Game Rule](#4-game-rule)
+
+  - [4.1 Snake](#4-1-snake)
+  - [4.2 Item](#4-2-item)
+  - [4.3 Wall](#4-3-wall)
+    - [4.3.1 Wall](#4-3-1-wall)
+    - [4.3.2 Immune Wall](#4-3-2-immune-wall)
+    - [4.3.3 Gate](#4-3-3-gate)
+  - [4.4 Score Board](#4-4-score-board)
+  - [4.5 Stage](#4-5-stage)
+
 - [5. About Code](#5-about-code)
 
+  - [5.1 Map 구성](#5-1-map-구성)
 
+  - [5.2 Snake Movement](#5-2-snake-movement)
+
+  - [5.3 Item(Growth/Poison)](#5-3-item-growth-poison)
+
+  - [5.4 Gate](#5-4-gate)
+
+  - [5.5 Score Board 및 Misson](#5-5-score-board-및-mission)
+
+    
 
 ## 1. Team
 
@@ -126,8 +149,6 @@ C++ 언어를 사용하고 ncurses 라이브러리를 활용하여 제작한 Sna
 
 - Stage는 총 4단계로 구성되어있다. 
 - 각 단계별 Mission을 Clear하게되면, 다음 단계로 넘어가게 된다.
-
-
 
 
 
