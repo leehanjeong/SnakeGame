@@ -19,7 +19,7 @@ C++ 언어를 사용하고 ncurses 라이브러리를 활용하여 제작한 Sna
 - [5. About Code](#5-about-code)
   - [5.1 Map 구성](#51-map-구성)
   - [5.2 Snake Movement](#52-snake-movement)
-  - [5.3 Item(Growth/Poison)](#53-item-growth-poison)
+  - [5.3 Item](#53-item)
   - [5.4 Gate](#54-gate)
   - [5.5 Score Board 및 Misson](#55-score-board-및-mission)
 
