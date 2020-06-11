@@ -141,6 +141,7 @@ void show_gameover(int a)
   mvprintw(8, 8, "                        $$             $$ \n");
 	mvprintw(9, 8, "[-]    (TT)$$$$$$$$$$$$$$$             $$$$$$$$$$$$$$$$$ ,,,\n");
   mvprintw(11, 8, "                                                (TT)$$$$$$$ ,,,\n");
+  mvprintw(12, 2, "______________________________________________________________________________\n");
   mvprintw(13, 8, "                             GAME OVER \n");
   mvprintw(14, 8, "                             Score:");
     attron(A_STANDOUT);
