@@ -720,9 +720,9 @@ if(gateFlag){
 
 ### 5.5.1 Score Board
 
-Score Board에서는 현재까지 Snake가 획득한 점수들을 출력한다. <br>
-![스코어보드](https://raw.githubusercontent.com/young43/SnakeGame/master/img/5%EB%8B%A8%EA%B3%84_%EC%8A%A4%EC%BD%94%EC%96%B4%EB%B3%B4%EB%93%9C.png?token=ANEQJDAIQTXPK3KBSMCLPKC64JNPU)
+Score Board에서는 현재까지 Snake가 획득한 점수들을 출력한다. 
 
+![스코어보드](https://raw.githubusercontent.com/young43/SnakeGame/master/img/5%EB%8B%A8%EA%B3%84_%EC%8A%A4%EC%BD%94%EC%96%B4%EB%B3%B4%EB%93%9C.png?token=ANEQJDAIQTXPK3KBSMCLPKC64JNPU)
 - Snake.getscore() : Snake의 현재 길이
 - Snake.getCntGrowth() : 현재까지 획득한 Growth 아이템 수
 - Snake.getCntPoison(): 현재까지 획득한 Poison 아이템 수
