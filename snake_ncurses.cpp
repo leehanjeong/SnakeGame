@@ -13,23 +13,29 @@
 
 // Length, Growth, Poison, Gate
 int MISSION[4][4] = {
-    {7, 3, 1, 1},
-    {10, 4, 2, 1},
-    {12, 5, 3, 2},
-    {14, 6, 4, 3},
+    {6, 4, 1, 1},
+    {7, 5, 2, 1},
+    {8, 6, 3, 2},
+    {9, 7, 4, 3},
 };
 
 
 void print_snake(void)
 {
-	mvprintw(0, 7, " $$$$$$\\  $$\\   $$\\  $$$$$$\\  $$\\   $$\\ $$$$$$$$\\\n");
-	mvprintw(1, 7, "$$  __$$\\ $$$\\  $$ |$$  __$$\\ $$ | $$  |$$  _____|\n");
-	mvprintw(2, 7, "$$ /  \\__|$$$$\\ $$ |$$ /  $$ |$$ |$$  / $$ |\n");
-	mvprintw(3, 7, "\\$$$$$$\\  $$ $$\\$$ |$$$$$$$$ |$$$$$  /  $$$$$\\\n");
-	mvprintw(4, 7, " \\____$$\\ $$ \\$$$$ |$$  __$$ |$$  $$<   $$  __|\n");
-	mvprintw(5, 7, "$$\\   $$ |$$ |\\$$$ |$$ |  $$ |$$ |\\$$\\  $$ |\n");
-	mvprintw(6, 7, "\\$$$$$$  |$$ | \\$$ |$$ |  $$ |$$ | \\$$\\ $$$$$$$$\\\n");
-	mvprintw(7, 7, " \\______/ \\__|  \\__|\\__|  \\__|\\__|  \\__|\\________|\n");
+	mvprintw(5, 8, "                        $$$$$$$$$$$$$$$$$\n");
+	mvprintw(6, 8, "                        $$             $$ \n");
+	mvprintw(7, 8, "          [!!]          $$             $$ \n");
+  mvprintw(8, 8, "                        $$             $$ \n");
+	mvprintw(9, 8, "[+]    (\"\")$$$$$$$$$$$$$$$             $$$$$$$$$$$$$$$$$ ,,,\n");
+  mvprintw(11, 8, "                                               (\"\")$$$$$$$ ,,,TEAM 5\n");
+  mvprintw(12, 2, "______________________________________________________________________________\n");
+
+
+  /*mvprintw(8, 8, "        ******* *******     *     *       *    *******\n");
+	mvprintw(9, 8, "           *    *          * *    **     **    *\n");
+	mvprintw(10, 8, "           *    *******   *****   * *   * *    *******\n");
+  mvprintw(11, 8, "           *    *        *     *  *  * *  *          *\n");
+  mvprintw(12,8, "           *    ******* *       * *   *   *    *******\n");*/
 }
 
 int show_menu(void)
@@ -44,10 +50,10 @@ int show_menu(void)
 	curs_set(0);
 	print_snake();
 	attron(A_STANDOUT);
-	mvprintw(12, 22, "Play Snake Game.");
+	mvprintw(15, 32, " Play Snake Game");
 	attroff(A_STANDOUT);
-	mvprintw(13, 22, "Show All Scores");
-	mvprintw(14, 24, "Exit Game.");
+	mvprintw(16, 32, " Show All Scores");
+	mvprintw(17, 34, " Exit Game");
 	while(1) {
 		ch=getch();
 		if(ch=='\n') {
@@ -74,27 +80,27 @@ int show_menu(void)
 				erase();
 				print_snake();
 				attron(A_STANDOUT);
-				mvprintw(12, 22, "Play Snake Game.");
+				mvprintw(15, 32, " Play Snake Game");
 				attroff(A_STANDOUT);
-				mvprintw(13, 22, "Show All Scores");
-				mvprintw(14, 24, "Exit Game.");
+				mvprintw(16, 32, " Show All Scores");
+				mvprintw(17, 34, " Exit Game");
 				break;
 			case 2:
 				erase();
 				print_snake();
-				mvprintw(12, 22, "Play Snake Game.");
+				mvprintw(15, 32, " Play Snake Game");
 				attron(A_STANDOUT);
-				mvprintw(13, 22, "Show All Scores");
+				mvprintw(16, 32, " Show All Scores");
 				attroff(A_STANDOUT);
-				mvprintw(14, 24, "Exit Game.");
+				mvprintw(17, 34, " Exit Game");
 				break;
 			case 3:
 				erase();
 				print_snake();
-				mvprintw(12, 22, "Play Snake Game.");
-				mvprintw(13, 22, "Show All Scores");
+				mvprintw(15, 32, " Play Snake Game");
+				mvprintw(16, 32, " Show All Scores");
 				attron(A_STANDOUT);
-				mvprintw(14, 24, "Exit Game.");
+				mvprintw(17, 34, " Exit Game");
 				attroff(A_STANDOUT);
 				break;
 		}
@@ -222,7 +228,7 @@ int classic_game(void)
 	int stage=1;
 	int ch, d;
 	Snake S(stage);
-	
+
 	initscr();
 	keypad(stdscr, TRUE);
 	noecho();
