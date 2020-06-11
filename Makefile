@@ -4,7 +4,7 @@ CXXFLAGS = -Wall -std=c++11
 INCLUDES =
 LFLAGS =
 LIBS = -lncursesw
-SRCS = main.cpp snake.cpp score.cpp snake_ncurses.cpp stage.cpp
+SRCS = main.cpp snake.cpp snake_ncurses.cpp stage.cpp
 OBJS = $(SRCS:.cpp=.o)
 MAIN = snake_ncurses
 

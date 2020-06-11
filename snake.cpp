@@ -8,7 +8,6 @@
 
 #include "snake_ncurses.hpp"
 #include "snake.hpp"
-#include "score.hpp"
 #include "stage.hpp"
 
 
