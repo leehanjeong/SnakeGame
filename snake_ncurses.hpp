@@ -70,7 +70,7 @@ void show_gameover(int);
 void print_mission();
 void print_nextStage(int);
 void show_gameClear();
-int classic_game(void);
+void classic_game(void);
 
 Point rand_point(std::deque<Cell>, std::deque<Item>, std::deque<Cell>);
 Point rand_point(std::deque<Cell>, std::deque<Item>, std::deque<Cell>, std::deque<Cell>);

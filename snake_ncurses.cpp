@@ -9,7 +9,6 @@
 
 #include "snake_ncurses.hpp"
 #include "snake.hpp"
-#include "score.hpp"
 
 // Length, Growth, Poison, Gate
 int MISSION[4][4] = {
@@ -52,8 +51,7 @@ int show_menu(void)
 	attron(A_STANDOUT);
 	mvprintw(15, 32, " Play Snake Game");
 	attroff(A_STANDOUT);
-	mvprintw(16, 32, " Show All Scores");
-	mvprintw(17, 34, " Exit Game");
+	mvprintw(16, 34, " Exit Game");
 	while(1) {
 		ch=getch();
 		if(ch=='\n') {
@@ -64,11 +62,11 @@ int show_menu(void)
 				c--;
 			}
 			else {
-				c=4;
+				c=3;
 			}
 		}
 		else if(ch==KEY_DOWN) {
-			if(c<3) {
+			if(c<2) {
 				c++;
 			}
 			else {
@@ -82,25 +80,14 @@ int show_menu(void)
 				attron(A_STANDOUT);
 				mvprintw(15, 32, " Play Snake Game");
 				attroff(A_STANDOUT);
-				mvprintw(16, 32, " Show All Scores");
-				mvprintw(17, 34, " Exit Game");
+				mvprintw(16, 34, " Exit Game");
 				break;
 			case 2:
 				erase();
 				print_snake();
 				mvprintw(15, 32, " Play Snake Game");
 				attron(A_STANDOUT);
-				mvprintw(16, 32, " Show All Scores");
-				attroff(A_STANDOUT);
-				mvprintw(17, 34, " Exit Game");
-				break;
-			case 3:
-				erase();
-				print_snake();
-				mvprintw(15, 32, " Play Snake Game");
-				mvprintw(16, 32, " Show All Scores");
-				attron(A_STANDOUT);
-				mvprintw(17, 34, " Exit Game");
+				mvprintw(16, 34, " Exit Game");
 				attroff(A_STANDOUT);
 				break;
 		}
@@ -135,19 +122,15 @@ void show_gameover(int a)
 {
 	erase();
 	timeout(TIMEOUT_GAME_OVER);
-  mvprintw(5, 8, "                        $$$$$$$$$$$$$$$$$\n");
+	mvprintw(5, 8, "                        $$$$$$$$$$$$$$$$$\n");
 	mvprintw(6, 8, "                        $$             $$ \n");
 	mvprintw(7, 8, "          [!!]          $$             $$ \n");
-  mvprintw(8, 8, "                        $$             $$ \n");
+	mvprintw(8, 8, "                        $$             $$ \n");
 	mvprintw(9, 8, "[-]    (TT)$$$$$$$$$$$$$$$             $$$$$$$$$$$$$$$$$ ,,,\n");
-  mvprintw(11, 8, "                                                (TT)$$$$$$$ ,,,\n");
-  mvprintw(12, 2, "______________________________________________________________________________\n");
-  mvprintw(14, 8, "                             GAME OVER \n");
-  mvprintw(15, 8, "                             Score:");
-    attron(A_STANDOUT);
-    printw("%3d", a);
-    attroff(A_STANDOUT);
-    getch();
+	mvprintw(11, 8, "                                                (TT)$$$$$$$ ,,,\n");
+	mvprintw(12, 2, "______________________________________________________________________________\n");
+	mvprintw(14, 8, "                             GAME OVER \n");
+
 }
 
 void print_score(Snake& s)
@@ -205,7 +188,7 @@ void print_mission(Snake& s)
 }
 
 
-int classic_game(void)
+void classic_game(void)
 {
 	start_color();
 	use_default_colors();
@@ -231,7 +214,7 @@ int classic_game(void)
 	while(1) {
 		ch=getch();
 		if(ch=='q') {
-			return S.getscore();
+			return;
 		}
 		else if(ch==KEY_UP || ch==KEY_DOWN || ch==KEY_RIGHT || ch==KEY_LEFT) {
 			switch(ch) {
@@ -266,7 +249,7 @@ int classic_game(void)
 			timeout(TIMEOUT_LONG);
 			getch();
 			show_gameover(S.getscore());
-			return S.getscore();
+			return;
 		}
 
 		// 길이가 3미만이면 GameOver
@@ -274,7 +257,7 @@ int classic_game(void)
 			timeout(TIMEOUT_LONG);
 			getch();
 			show_gameover(S.getscore());
-			return S.getscore();
+			return;
 		}
 
 
