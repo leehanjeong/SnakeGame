@@ -312,8 +312,8 @@ Snake::Snake(int s) : len(DEF_LEN_CLASSIC), stage(s)
 #### 5.2.3 방향키 입력
 
 사용자가 방향키를 입력하게 되면, Snake가 움직이게 된다. 
-![Snake움직임](img/2단계1.png)
-![Snake움직임2](img/2단계2.png)
+![Snake움직임](https://raw.githubusercontent.com/young43/SnakeGame/master/img/2%EB%8B%A8%EA%B3%841.png?token=ANEQJDDKMMGS7W5LV4WFM6S64JNE6)
+![Snake움직임2](https://raw.githubusercontent.com/young43/SnakeGame/master/img/2%EB%8B%A8%EA%B3%842.png?token=ANEQJDCS5K64VJZAVBMYVMS64JNGY)
 
 - 다음과 같은 상황에는 방향키 입력이 무시된다.
   - 현재 진행방향과 같은 방향
@@ -529,11 +529,11 @@ void Snake::makeItem()
 
 Snake Head 부분이 Item과 부딪히게 됐을 경우를 획득했다라고 판단하며, 획득 시 몸의 길이가 증가하거나 감소한다.
 - Growth 아이템 획득
-  ![아이템출현](img/3단계_growth1.png)
-  ![아이템출현](img/3단계_growth2.png)
+  ![아이템출현](https://raw.githubusercontent.com/young43/SnakeGame/master/img/3%EB%8B%A8%EA%B3%84_growth1.png?token=ANEQJDDO72BV7FNPN7I2XKS64JNIC)
+  ![아이템출현](https://raw.githubusercontent.com/young43/SnakeGame/master/img/3%EB%8B%A8%EA%B3%84_growth2.png?token=ANEQJDFPGEVZT36PO7M64DS64JNIU)
 - Poison 아이템 획득
-  ![아이템출현](img/3단계_poison1.png)
-  ![아이템출현](img/3단계_poison2.png)
+  ![아이템출현](https://raw.githubusercontent.com/young43/SnakeGame/master/img/3%EB%8B%A8%EA%B3%84_poison1.png?token=ANEQJDEX4DHM2XDNTIUKTU264JNKI)
+  ![아이템출현](https://raw.githubusercontent.com/young43/SnakeGame/master/img/3%EB%8B%A8%EA%B3%84_poison2.png?token=ANEQJDG7BSSANH6UVQQJEOC64JNLA)
 - Snake Head 부분 = cells.front() 
 - Head와 아이템 좌표가 같아질 경우, 획득한 아이템에 대한 정보들을 저장한다.
   - 현재 아이템의 iterator(삭제를 위함)
@@ -595,7 +595,7 @@ void Snake::eatItem()
 #### 5.4.1 Gate출현
 
 Gate는 기본적으로 Snake 길이가 6이상일 때, 출현하게 된다. 10초마다 Gate를 새로 출현하게 되는데, Snake가 통과 중일 때는 생성하지 않는다.
-![게이트출현](img/4단계1.png)
+![게이트출현](https://raw.githubusercontent.com/young43/SnakeGame/master/img/4%EB%8B%A8%EA%B3%841.png?token=ANEQJDFQKF3S2RHTSUJHONK64JNMC)
 
 - Snake(cells) 길이가 6 이상이고, gate가 출현한지 10초이상이면 새로운 Gate를 출현시킨다.
 - Snake가 gate를 통과 중인지 Check하고, 통과 중이면 생성하지 않는다.
@@ -640,8 +640,8 @@ void Snake::makeGate()
 #### 5.4.2 Gate 통과
 
 Snake가 하나의 Gate에 통과 중일 경우, 다른 Gate로 나와야한다.
-![게이트통과](img/4단계2.png)
-![게이트통과](img/4단계3.png)
+![게이트통과](https://raw.githubusercontent.com/young43/SnakeGame/master/img/4%EB%8B%A8%EA%B3%842.png?token=ANEQJDGOI23PTUNH3GDDQLS64JNM4)
+![게이트통과](https://raw.githubusercontent.com/young43/SnakeGame/master/img/4%EB%8B%A8%EA%B3%843.png?token=ANEQJDDDGRBIS33JUSQW2QC64JNNO)
 
 - 우선 Gate가 통과 중인 지 Check하고, gateFlag 값을 true로 설정한다.
 - 그렇지 않은경우, 반대편 Gate의 좌표를 저장한다.
@@ -720,8 +720,8 @@ if(gateFlag){
 
 ### 5.5.1 Score Board
 
-Score Board에서는 현재까지 Snake가 획득한 점수들을 출력한다.
-![스코어보드](img/5단계_스코어보드.png)
+Score Board에서는 현재까지 Snake가 획득한 점수들을 출력한다. <br>
+![스코어보드](https://raw.githubusercontent.com/young43/SnakeGame/master/img/5%EB%8B%A8%EA%B3%84_%EC%8A%A4%EC%BD%94%EC%96%B4%EB%B3%B4%EB%93%9C.png?token=ANEQJDAIQTXPK3KBSMCLPKC64JNPU)
 
 - Snake.getscore() : Snake의 현재 길이
 - Snake.getCntGrowth() : 현재까지 획득한 Growth 아이템 수
@@ -773,13 +773,13 @@ int Snake::getCntGate()
 
 Mission Board에서는 각 Stage마다 수행해야할 Mission들이 출력된다.
 - 1단계
-  ![스테이지1](img/5단계_스테이지1.png)
+  ![스테이지1](https://raw.githubusercontent.com/young43/SnakeGame/master/img/5%EB%8B%A8%EA%B3%84_%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%A7%801.png?token=ANEQJDCRYLL7FZWMUNL4PRC64JNQS)
 - 2단계
-  ![스테이지2](img/5단계_스테이지2.png)
+  ![스테이지2](https://raw.githubusercontent.com/young43/SnakeGame/master/img/5%EB%8B%A8%EA%B3%84_%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%A7%802.png?token=ANEQJDH3IWVYMCFOEIRY6QS64JNRE)
 - 3단계
-  ![스테이지3](img/5단계_스테이지3.png)
+  ![스테이지3](https://raw.githubusercontent.com/young43/SnakeGame/master/img/5%EB%8B%A8%EA%B3%84_%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%A7%803.png?token=ANEQJDH7AGW3KL67MNJCXBC64JNR2)
 - 4단계
-  ![스테이지4](img/5단계_스테이지4.png)
+  ![스테이지4](https://raw.githubusercontent.com/young43/SnakeGame/master/img/5%EB%8B%A8%EA%B3%84_%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%A7%804.png?token=ANEQJDCZR4G6AD4HF244BN264JNSM)
 - 각 Mission을 완수할 경우, 'V' 자를 표시한다.
 
 ```c++
