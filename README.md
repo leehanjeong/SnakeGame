@@ -726,7 +726,7 @@ Score Board에서는 현재까지 Snake가 획득한 점수들을 출력한다.
 - Snake.getscore() : Snake의 현재 길이
 - Snake.getCntGrowth() : 현재까지 획득한 Growth 아이템 수
 - Snake.getCntPoison(): 현재까지 획득한 Poison 아이템 수
-- Snake.getCntGet() : 현재까지 통과한 Gate 수
+- Snake.getCntGate() : 현재까지 통과한 Gate 수
 
 ```c++
 // snake_ncurses.cpp
